@@ -1,5 +1,6 @@
 using Convey;
 using Convey.CQRS.Commands;
+using Convey.Metrics.AppMetrics;
 using convey_cqrs.Services.Item;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +28,8 @@ namespace convey_microservice
             var builder = ConveyBuilder
                 .Create(services)
                 .AddCommandHandlers()
-                .AddInMemoryCommandDispatcher();
+                .AddInMemoryCommandDispatcher()
+                .AddMetrics();
 
             builder.Build();
         }
