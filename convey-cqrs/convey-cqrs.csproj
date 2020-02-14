@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>convey_microservice</RootNamespace>
+        <RootNamespace>convey_cqrs</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
