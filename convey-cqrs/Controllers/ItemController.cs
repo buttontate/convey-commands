@@ -1,5 +1,6 @@
 using System;
 using convey_cqrs.Commands.Item;
+using convey_cqrs.Models.Item;
 using convey_cqrs.Services.Item;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,18 +16,14 @@ namespace convey_cqrs.Controllers
         {
             _itemService = itemService;
         }
-
-        [HttpGet("{id}")]
-        public IActionResult GetItem(int id)
-        {
-            return Ok(id);
-        }
         
         [HttpPost]
-        public IActionResult CreateItem()
+        public IActionResult CreateItem(CreateItem item)
         {
-            _itemService.CreateItemAsync(new CreateItemCommand(Guid.NewGuid(), "Some Description", "123456789123" ));
-            return Ok();
+            if (!ModelState.IsValid) return BadRequest();
+            //TODO should move to factory rather than on concrete
+            var createItemCommand = CreateItemCommand.CreateInstance(item);
+            return Ok(_itemService.CreateItemAsync(createItemCommand));
         }
     }
 }
