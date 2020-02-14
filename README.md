@@ -1,3 +1,3 @@
 # Convey Microservice
 
-messing around with convey microservice library
+messing around with convey cqrs
