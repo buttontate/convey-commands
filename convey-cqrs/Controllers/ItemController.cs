@@ -1,9 +1,9 @@
 using System;
-using convey_microservice.Commands.Item;
-using convey_microservice.Services.Item;
+using convey_cqrs.Commands.Item;
+using convey_cqrs.Services.Item;
 using Microsoft.AspNetCore.Mvc;
 
-namespace convey_microservice.Controllers
+namespace convey_cqrs.Controllers
 {
     [Route("api/items")]
     [ApiController]

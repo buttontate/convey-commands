@@ -1,7 +1,7 @@
 using System;
 using Convey.CQRS.Commands;
 
-namespace convey_microservice.Commands.Item
+namespace convey_cqrs.Commands.Item
 {
     public class CreateItemCommand : ICommand
     {

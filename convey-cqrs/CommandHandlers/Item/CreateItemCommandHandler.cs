@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Convey.CQRS.Commands;
-using convey_microservice.Commands.Item;
+using convey_cqrs.Commands.Item;
 using Microsoft.Extensions.Logging;
 
-namespace convey_microservice.CommandHandlers.Item
+namespace convey_cqrs.CommandHandlers.Item
 {
     public class CreateItemCommandHandler : ICommandHandler<CreateItemCommand>
     {

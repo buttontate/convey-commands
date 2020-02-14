@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Convey.CQRS.Commands;
-using convey_microservice.Commands.Item;
+using convey_cqrs.Commands.Item;
 
-namespace convey_microservice.Services.Item
+namespace convey_cqrs.Services.Item
 {
     public interface IItemService
     {

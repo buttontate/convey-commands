@@ -1,6 +1,6 @@
 using Convey;
 using Convey.CQRS.Commands;
-using convey_microservice.Services.Item;
+using convey_cqrs.Services.Item;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
