@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "convey-cqrs", "convey-cqrs\convey-cqrs.csproj", "{8AB9AC24-C1F3-488C-876E-2EFA95E0D1A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "convey-cqrs-tests", "convey-cqrs-tests\convey-cqrs-tests.csproj", "{CBF27283-C937-4EBC-B9A7-CE94D6B45051}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{8AB9AC24-C1F3-488C-876E-2EFA95E0D1A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB9AC24-C1F3-488C-876E-2EFA95E0D1A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB9AC24-C1F3-488C-876E-2EFA95E0D1A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBF27283-C937-4EBC-B9A7-CE94D6B45051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF27283-C937-4EBC-B9A7-CE94D6B45051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF27283-C937-4EBC-B9A7-CE94D6B45051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF27283-C937-4EBC-B9A7-CE94D6B45051}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

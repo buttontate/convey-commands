@@ -5,17 +5,8 @@ namespace convey_cqrs.Commands.Item
 {
     public class CreateItemCommand : ICommand
     {
-        public CreateItemCommand(Guid id, string upc, string description)
-        {
-            Id = id;
-            Upc = upc;
-            Description = description;
-        }
-
         public Guid Id { get; set; }
         public string Upc { get; set; }
         public string Description { get; set; }
-        
-        
     }
 }
