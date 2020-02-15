@@ -18,12 +18,10 @@ namespace convey_cqrs.Controllers
         }
         
         [HttpPost]
-        public IActionResult CreateItem(CreateItem item)
+        public IActionResult CreateItem(ItemPostDto item)
         {
             if (!ModelState.IsValid) return BadRequest();
-            //TODO should move to factory rather than on concrete
-            var createItemCommand = CreateItemCommand.CreateInstance(item);
-            return Ok(_itemService.CreateItemAsync(createItemCommand));
+            return Ok(_itemService.CreateItemAsync(item));
         }
     }
 }

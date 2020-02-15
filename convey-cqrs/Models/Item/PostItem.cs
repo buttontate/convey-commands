@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace convey_cqrs.Models.Item
 {
-    public class CreateItem
+    public class ItemPostDto
     {
         [Required]
         public string Upc { get; set; }

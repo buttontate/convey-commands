@@ -1,6 +1,7 @@
 using Convey;
 using Convey.CQRS.Commands;
 using Convey.Metrics.AppMetrics;
+using convey_cqrs.Commands.Item;
 using convey_cqrs.Services.Item;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,15 +17,20 @@ namespace convey_microservice
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IItemService, ItemService>();
-            
-            services.AddConvey();
+            RegisterDependencies(services);
             ConfigureConvey(services);
             services.AddControllers();
         }
 
+        private static void RegisterDependencies(IServiceCollection services)
+        {
+            services.AddScoped<IItemService, ItemService>();
+            services.AddSingleton<IItemCommandFactory, ItemCommandFactory>();
+        }
+
         private static void ConfigureConvey(IServiceCollection services)
         {
+            services.AddConvey();
             var builder = ConveyBuilder
                 .Create(services)
                 .AddCommandHandlers()
