@@ -11,27 +11,23 @@ services:
           - ASPNETCORE_ENVIRONMENT=Development
     flyway:
       image: flyway/flyway
-      command: -url=jdbc:postgresql://postgres -user=postgres -password=postgres migrate
+      command: -url=jdbc:postgresql://postgres/ -user=postgres -password=postgres migrate
       volumes:
         - ./flyway/sql:/flyway/sql
       depends_on:
         - postgres
     postgres:
-      container_name: postgres_container
-      image: postgres
+      container_name: postgres
+      image: postgres:alpine
       environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
         PGDATA: /data/postgres
       volumes:
         - postgres:/data/postgres
       ports:
         - 5432:5432
-      networks:
-        - postgres
       restart: unless-stopped
     pgadmin:
-      container_name: pgadmin_container
+      container_name: pgadmin
       image: dpage/pgadmin4
       environment:
         PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
@@ -40,14 +36,7 @@ services:
         - pgadmin:/root/.pgadmin
       ports:
         - 5050:80
-      networks:
-        - postgres
       restart: unless-stopped
-
-networks:
-  postgres:
-    driver: bridge
-
 volumes:
     postgres:
     pgadmin:
