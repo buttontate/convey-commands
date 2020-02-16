@@ -1,7 +1,7 @@
 version: '3'
 services:
     conveycqrs:
-      image: 'conveycqrs:latest'
+      image: conveycqrs:latest
       build:
           context: .
           dockerfile: convey-cqrs/Dockerfile
@@ -13,13 +13,13 @@ services:
       container_name: postgres_container
       image: postgres
       environment:
-        POSTGRES_USER: ${POSTGRES_USER:-postgres}
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
         PGDATA: /data/postgres
       volumes:
         - postgres:/data/postgres
       ports:
-        - "5432:5432"
+        - 5432:5432
       networks:
         - postgres
       restart: unless-stopped
@@ -27,12 +27,12 @@ services:
       container_name: pgadmin_container
       image: dpage/pgadmin4
       environment:
-        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+        PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+        PGADMIN_DEFAULT_PASSWORD: password
       volumes:
         - pgadmin:/root/.pgadmin
       ports:
-        - "${PGADMIN_PORT:-5050}:80"
+        - 5050:80
       networks:
         - postgres
       restart: unless-stopped
