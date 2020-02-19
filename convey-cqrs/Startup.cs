@@ -2,6 +2,7 @@ using Convey;
 using Convey.CQRS.Commands;
 using Convey.Metrics.AppMetrics;
 using convey_cqrs.Commands.Item;
+using convey_cqrs.Data;
 using convey_cqrs.Services.Item;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +26,7 @@ namespace convey_microservice
         private static void RegisterDependencies(IServiceCollection services)
         {
             services.AddScoped<IItemService, ItemService>();
-            services.AddSingleton<IItemCommandFactory, ItemCommandFactory>();
+            
         }
 
         private static void ConfigureConvey(IServiceCollection services)

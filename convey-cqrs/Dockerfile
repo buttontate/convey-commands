@@ -6,6 +6,8 @@ COPY . ./
 
 RUN dotnet build -c Release
 
+RUN dotnet test
+
 RUN dotnet publish -c Release -o out --no-restore
 
 #######################################

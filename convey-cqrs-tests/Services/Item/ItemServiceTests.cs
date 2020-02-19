@@ -2,6 +2,7 @@ using System;
 using ChanceNET;
 using Convey.CQRS.Commands;
 using convey_cqrs.Commands.Item;
+using convey_cqrs.Data;
 using convey_cqrs.Models.Item;
 using convey_cqrs.Services.Item;
 using NSubstitute;
@@ -12,7 +13,7 @@ namespace convey_cqrs_tests.Services.Item
     public class ItemServiceTests
     {
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly IItemCommandFactory _itemCommandFactory;
+        private readonly IItemData _itemData;
         private readonly ItemService _itemService;
         private readonly Chance _chance;
 
@@ -20,8 +21,8 @@ namespace convey_cqrs_tests.Services.Item
         {
             _chance = new Chance();
             _commandDispatcher = Substitute.For<ICommandDispatcher>();
-            _itemCommandFactory = Substitute.For<IItemCommandFactory>();
-            _itemService = new ItemService(_commandDispatcher, _itemCommandFactory);
+            _itemData = Substitute.For<IItemData>();
+            _itemService = new ItemService(_commandDispatcher, _itemData);
         }
 
         [Fact]
@@ -39,7 +40,6 @@ namespace convey_cqrs_tests.Services.Item
                 Description = postItem.Description,
                 Upc = postItem.Upc
             };
-            _itemCommandFactory.CreateInstance().Returns(createItemCommand);
             _itemService.CreateItemAsync(postItem);
             _commandDispatcher.Received(1).SendAsync(createItemCommand);
         }

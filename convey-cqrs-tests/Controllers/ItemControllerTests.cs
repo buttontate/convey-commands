@@ -1,7 +1,9 @@
+using System;
 using ChanceNET;
 using convey_cqrs.Controllers;
 using convey_cqrs.Models.Item;
 using convey_cqrs.Services.Item;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using NSubstitute.Exceptions;
@@ -31,10 +33,13 @@ namespace convey_cqrs_tests.Controllers
                 Upc = TestUtils.CreateUpc()
             };
 
+            var expectedGuid = Guid.NewGuid();
+            _itemService.CreateItemAsync(createdItem).Returns(expectedGuid);
+
             var actionResult =  _itemsController.CreateItem(createdItem);
             var okObjectResult = actionResult as OkObjectResult;
-            
-            
+
+            okObjectResult.Value.Should().Be(expectedGuid);
         }
         
         [Fact]
