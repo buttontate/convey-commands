@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using convey_cqrs.Factories;
 using convey_cqrs.Models.Item;
@@ -20,10 +19,22 @@ namespace convey_cqrs.Data.Item
         {
             _connectionFactory = connectionFactory;
         }
+
         public async Task<Guid> CreateItem(ItemPostDto item)
         {
+            var itemUuid = Guid.NewGuid();
+            var sql = @"INSERT 
+INTO
+    item
+    (id, upc, description) 
+  VALUES
+    (@itemUuid,@itemUpc,@itemDescription)";
+
             using var connection = _connectionFactory.GetConnection();
-            return (await connection.QueryAsync<Guid>("")).Single();
+            await connection.ExecuteAsync(sql,
+                new {itemUuid, itemUpc = item.Upc, @itemDescrioption = item.Description});
+
+            return itemUuid;
         }
     }
     
