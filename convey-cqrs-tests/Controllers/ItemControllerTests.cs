@@ -25,7 +25,7 @@ namespace convey_cqrs_tests.Controllers
         }
 
         [Fact]
-        public void GivenItem_ReturnsNewId()
+        public async void GivenItem_ReturnsNewId()
         {
             var createdItem = new ItemPostDto()
             {
@@ -36,7 +36,7 @@ namespace convey_cqrs_tests.Controllers
             var expectedGuid = Guid.NewGuid();
             _itemService.CreateItemAsync(createdItem).Returns(expectedGuid);
 
-            var actionResult =  _itemsController.CreateItem(createdItem);
+            var actionResult = await _itemsController.CreateItem(createdItem);
             var okObjectResult = actionResult as OkObjectResult;
 
             okObjectResult.Value.Should().Be(expectedGuid);

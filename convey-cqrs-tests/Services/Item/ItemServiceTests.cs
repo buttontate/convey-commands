@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using ChanceNET;
 using Convey.CQRS.Commands;
 using convey_cqrs.Commands.Item;
 using convey_cqrs.Data;
+using convey_cqrs.Data.Item;
 using convey_cqrs.Models.Item;
 using convey_cqrs.Services.Item;
 using NSubstitute;
@@ -26,22 +28,26 @@ namespace convey_cqrs_tests.Services.Item
         }
 
         [Fact]
-        public void CreateItemCallsDispatch()
+        public async void CreateItemCallsDispatch()
         {
-            var postItem = new ItemPostDto()
+            var postItem = new ItemPostDto
             {
                 Description = _chance.Sentence(5),
                 Upc = TestUtils.CreateUpc()
             };
 
-            var createItemCommand = new CreateItemCommand()
+            var itemUuid = Guid.NewGuid();
+
+            _itemData.CreateItem(postItem).Returns(itemUuid);
+
+            var createItemCommand = new CreateItemCommand
             {
-                Id = Guid.NewGuid(),
+                Id = itemUuid,
                 Description = postItem.Description,
                 Upc = postItem.Upc
             };
-            _itemService.CreateItemAsync(postItem);
-            _commandDispatcher.Received(1).SendAsync(createItemCommand);
+            await _itemService.CreateItemAsync(postItem);
+            await _commandDispatcher.Received(1).SendAsync(Arg.Is<CreateItemCommand>(command => command.Id == createItemCommand.Id));
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Convey.CQRS.Commands;
 using convey_cqrs.Commands.Item;
 using convey_cqrs.Data;
+using convey_cqrs.Data.Item;
 using convey_cqrs.Models.Item;
 
 namespace convey_cqrs.Services.Item
@@ -27,21 +28,21 @@ namespace convey_cqrs.Services.Item
         {
             var itemUuid = await _itemData.CreateItem(item);
 
-            await DispatchCreateItem(item, itemUuid);
+            var command = new CreateItemCommand
+            {
+                Description = item.Description,
+                Id = itemUuid,
+                Upc = item.Upc
+            };
+            
+            await DispatchCreateItem(command);
 
             return itemUuid;
         }
 
-        private async Task DispatchCreateItem(ItemPostDto item, Guid itemUuid)
+        private async Task DispatchCreateItem(CreateItemCommand command)
         {
-            var createItemCommand = new CreateItemCommand()
-            {
-                Description = item.Description,
-                Upc = item.Upc,
-                Id = itemUuid
-            };
-
-            await _commandDispatcher.SendAsync(createItemCommand);
+            await _commandDispatcher.SendAsync(command);
         }
     }
 }

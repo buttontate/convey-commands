@@ -1,16 +1,17 @@
 using Convey;
+using convey_cqrs.Data.Item;
+using convey_cqrs.Factories;
+using convey_cqrs.Services.Item;
 using Convey.CQRS.Commands;
 using Convey.Metrics.AppMetrics;
-using convey_cqrs.Commands.Item;
-using convey_cqrs.Data;
-using convey_cqrs.Services.Item;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
-namespace convey_microservice
+namespace convey_cqrs
 {
     public class Startup
     {
@@ -21,12 +22,17 @@ namespace convey_microservice
             RegisterDependencies(services);
             ConfigureConvey(services);
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
         }
 
         private static void RegisterDependencies(IServiceCollection services)
         {
             services.AddScoped<IItemService, ItemService>();
-            
+            services.AddScoped<IItemData, ItemData>();
+            services.AddScoped<IConnectionFactory, ConnectionFactory>();
         }
 
         private static void ConfigureConvey(IServiceCollection services)
@@ -48,6 +54,12 @@ namespace convey_microservice
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseRouting();
 

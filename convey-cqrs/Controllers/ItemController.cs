@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using convey_cqrs.Commands.Item;
 using convey_cqrs.Models.Item;
 using convey_cqrs.Services.Item;
@@ -18,10 +19,10 @@ namespace convey_cqrs.Controllers
         }
         
         [HttpPost]
-        public IActionResult CreateItem(ItemPostDto item)
+        public async Task<IActionResult> CreateItem(ItemPostDto item)
         {
             if (!ModelState.IsValid) return BadRequest();
-            return Ok(_itemService.CreateItemAsync(item));
+            return Ok(await _itemService.CreateItemAsync(item));
         }
     }
 }
